@@ -12,6 +12,10 @@ const serialnum = -1309627909
 radio.onReceivedValue(function (name: string, value: number) {
     if (serialnum != radio.receivedPacket(RadioPacketProperty.SerialNumber)) return;
 
+    if (name == "STOP" && value == 15) {
+        PCAmotor.MotorStopAll
+    }
+    
     if (name == "GO" && value == 18) {
         PCAmotor.MotorRun(m1, -215)
         PCAmotor.MotorRun(m4, -255)
@@ -25,9 +29,5 @@ radio.onReceivedValue(function (name: string, value: number) {
     if (name == "RIGHT" && value == 16) {
         PCAmotor.MotorRun(m1, 215)
         PCAmotor.MotorRun(m4, -255)
-    }
-
-    if (name == "STOP" && value == 15) {
-        PCAmotor.MotorStopAll
     }
 })
