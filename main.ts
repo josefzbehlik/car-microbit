@@ -23,12 +23,12 @@ radio.onReceivedValue(function (name: string, value: number) {
     }
 
     if (name == "LEFT" && value == 16) {
-        PCAmotor.MotorRun(m1, -215)
-        PCAmotor.MotorRun(m4, 255)
+        PCAmotor.MotorRun(m1, 215)
+        PCAmotor.MotorRun(m4, -255)
     }
 
     if (name == "RIGHT" && value == 15) {
-        PCAmotor.MotorRun(m1, 215)
-        PCAmotor.MotorRun(m4, -255)
+        PCAmotor.MotorRun(m1, -215)
+        PCAmotor.MotorRun(m4, 255)
     }
 })
