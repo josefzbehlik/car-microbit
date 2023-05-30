@@ -46,10 +46,26 @@ const serialnum = -1309627909
 
 
 
-pins.setPull(DigitalPin.P15, PinPullMode.PullUp)
-pins.setPull(DigitalPin.P14, PinPullMode.PullUp)
-pins.setPull(DigitalPin.P13, PinPullMode.PullUp)
+const pinR = DigitalPin.P13
+const pinL = DigitalPin.P14
+const pinC = DigitalPin.P15
+pins.setPull(pinR, PinPullMode.PullNone)
+pins.setPull(pinL, PinPullMode.PullNone)
+pins.setPull(pinC, PinPullMode.PullNone)
 
+basic.forever(function() {
+    
+
+
+
+
+
+
+
+
+
+
+})
 
 
 
