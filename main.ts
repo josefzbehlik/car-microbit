@@ -3,7 +3,7 @@ radio.setGroup(13)
 let m1 = PCAmotor.Motors.M1
 let m4 = PCAmotor.Motors.M4
 
-const M1_MAXSPEED = 235
+const M1_MAXSPEED = 230
 const M4_MAXSPEED = 255
 
 const LOWER_DEADZONE = 300
