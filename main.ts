@@ -44,21 +44,30 @@ const serialnum = -1309627909
 
 // })
 
-
+let M1Speed = 200
+let M4Speed = 220
 
 const pinR = DigitalPin.P13
 const pinL = DigitalPin.P14
 const pinC = DigitalPin.P15
+
 pins.setPull(pinR, PinPullMode.PullNone)
 pins.setPull(pinL, PinPullMode.PullNone)
 pins.setPull(pinC, PinPullMode.PullNone)
 
 basic.forever(function() {
     
+if (pinR === 0) {
+    PCAmotor.MotorRun(m1, M1Speed)
+    PCAmotor.MotorRun(m4, M4Speed -= 50)
+}
+    if (pinL === 0) {
+        PCAmotor.MotorRun(m1, M1Speed -= 50)
+        PCAmotor.MotorRun(m4, M4Speed)
+    }
 
 
-
-
+console.log(1)
 
 
 
