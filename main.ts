@@ -44,8 +44,7 @@ const serialnum = -1309627909
 
 // })
 
-let M1Speed = 200
-let M4Speed = 220
+let whiteline = 0
 
 const pinR = DigitalPin.P13
 const pinL = DigitalPin.P14
@@ -56,18 +55,29 @@ pins.setPull(pinL, PinPullMode.PullNone)
 pins.setPull(pinC, PinPullMode.PullNone)
 
 basic.forever(function() {
-    
-if (pinR === 0) {
-    PCAmotor.MotorRun(m1, M1Speed)
-    PCAmotor.MotorRun(m4, M4Speed -= 50)
-}
-    if (pinL === 0) {
-        PCAmotor.MotorRun(m1, M1Speed -= 50)
-        PCAmotor.MotorRun(m4, M4Speed)
+    let c = (whiteline ^ pins.digitalReadPin(pinC)) == 0 ? false : true
+    let r = (whiteline ^ pins.digitalReadPin(pinR)) == 0 ? false : true
+    let l = (whiteline ^ pins.digitalReadPin(pinL)) == 0 ? false : true
+
+                //lehká jízda
+    if (c)  {
+        PCAmotor.MotorRun(m1, 150)
+        PCAmotor.MotorRun(m4, 170)
+    } else if (r) {
+        PCAmotor.MotorRun(m1, 150)
+        PCAmotor.MotorRun(m4, 100)
+    } else if (l) {
+        PCAmotor.MotorRun(m1, 100)
+        PCAmotor.MotorRun(m4, 170)
     }
 
-
-console.log(1)
+                //křižovatka
+input.onButtonPressed(Button.A, function() {    //levá
+    if (l) {
+        PCAmotor.MotorRun(m1, -150)
+        PCAmotor.MotorRun(m4, 170)
+    }
+})
 
 
 
