@@ -1,4 +1,4 @@
-//radio.setGroup(13)
+radio.setGroup(13)
 // radio.onReceivedString(function (receivedString: string) {
 //     if (serialnum != radio.receivedPacket(RadioPacketProperty.SerialNumber)) return;
 //     let data = receivedString.split(";")
@@ -33,7 +33,6 @@
 // })
 
 
-radio.setGroup(112)
 
 let autoModeEnabled = true
 let whiteLine = 0
@@ -47,6 +46,12 @@ pins.setPull(pinL, PinPullMode.PullNone)
 pins.setPull(pinR, PinPullMode.PullNone)
 
 
+radio.onReceivedNumber(function(receivedNumber: 1) {
+    autoModeEnabled = true
+})
+radio.onReceivedNumber(function (receivedNumber: 0) {
+    autoModeEnabled = false
+})
 basic.forever(function () {
     if (autoModeEnabled) {
         let c = (whiteLine ^ pins.digitalReadPin(pinC)) == 0 ? false : true
@@ -64,7 +69,6 @@ basic.forever(function () {
             PCAmotor.MotorRun(PCAmotor.Motors.M4, 100)
         }
     }
-
 })
 
 
