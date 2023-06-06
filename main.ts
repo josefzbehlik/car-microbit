@@ -1,16 +1,4 @@
-radio.setGroup(13)
-
-let m1 = PCAmotor.Motors.M1
-let m4 = PCAmotor.Motors.M4
-
-const M1_MAXSPEED = 230
-const M4_MAXSPEED = 255
-
-const LOWER_DEADZONE = 300
-const UPPER_DEADZONE = 700
-
-const serialnum = -1309627909
-
+//radio.setGroup(13)
 // radio.onReceivedString(function (receivedString: string) {
 //     if (serialnum != radio.receivedPacket(RadioPacketProperty.SerialNumber)) return;
 //     let data = receivedString.split(";")
@@ -20,7 +8,7 @@ const serialnum = -1309627909
 //     let x_scale = Math.constrain(Math.abs(x), LOWER_DEADZONE, UPPER_DEADZONE) / (UPPER_DEADZONE - LOWER_DEADZONE)
 //     let y_scale = Math.constrain(Math.abs(y), LOWER_DEADZONE, UPPER_DEADZONE) / (UPPER_DEADZONE - LOWER_DEADZONE)
 
-    
+
 //     let M1Speed = 0
 //     let M4Speed = 0
 
@@ -44,45 +32,38 @@ const serialnum = -1309627909
 
 // })
 
-let whiteline = 0
 
-const pinR = DigitalPin.P13
-const pinL = DigitalPin.P14
-const pinC = DigitalPin.P15
+radio.setGroup(112)
 
-pins.setPull(pinR, PinPullMode.PullNone)
-pins.setPull(pinL, PinPullMode.PullNone)
+let autoModeEnabled = true
+let whiteLine = 0
+
+let pinC = DigitalPin.P15
+let pinL = DigitalPin.P14 // zkontrolovat piny
+let pinR = DigitalPin.P13
+
 pins.setPull(pinC, PinPullMode.PullNone)
+pins.setPull(pinL, PinPullMode.PullNone)
+pins.setPull(pinR, PinPullMode.PullNone)
 
-basic.forever(function() {
-    let c = (whiteline ^ pins.digitalReadPin(pinC)) == 0 ? false : true
-    let r = (whiteline ^ pins.digitalReadPin(pinR)) == 0 ? false : true
-    let l = (whiteline ^ pins.digitalReadPin(pinL)) == 0 ? false : true
 
-                //lehká jízda
-    if (c)  {
-        PCAmotor.MotorRun(m1, 150)
-        PCAmotor.MotorRun(m4, 170)
-    } else if (r) {
-        PCAmotor.MotorRun(m1, 150)
-        PCAmotor.MotorRun(m4, 100)
-    } else if (l) {
-        PCAmotor.MotorRun(m1, 100)
-        PCAmotor.MotorRun(m4, 170)
+basic.forever(function () {
+    if (autoModeEnabled) {
+        let c = (whiteLine ^ pins.digitalReadPin(pinC)) == 0 ? false : true
+        let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
+        let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
+
+        if (c) {
+            PCAmotor.MotorRun(PCAmotor.Motors.M1, -150)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, -160)
+        } else if (l) {
+            PCAmotor.MotorRun(PCAmotor.Motors.M1, 100)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, -150)
+        } else if (r) {
+            PCAmotor.MotorRun(PCAmotor.Motors.M1, -150)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, 100)
+        }
     }
-
-                //křižovatka
-input.onButtonPressed(Button.A, function() {    //levá
-    if (l) {
-        PCAmotor.MotorRun(m1, -150)
-        PCAmotor.MotorRun(m4, 170)
-    }
-})
-
-
-
-
-
 
 })
 
