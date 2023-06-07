@@ -49,6 +49,10 @@ let c = (whiteLine ^ pins.digitalReadPin(pinC)) == 0 ? false : true
 let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
 let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
 
+
+//ARRAY
+const pole = []
+
 radio.onReceivedNumber(function(receivedNumber: 1) {
     autoModeEnabled = true
 })
@@ -81,6 +85,20 @@ function zaklad() {
     }
 }
 
+function krizovatka ( ) {
+    if (c = true) {
+        basic.pause(50)
+        pole.unshift(c)
+    }
+    if (l = true) {
+        basic.pause(50)
+        pole.unshift(l)
+    }
+    if (r = true) {
+        basic.pause(50)
+        pole.unshift(r)
+    }
+}
 
 basic.forever(function () {
         zaklad()
