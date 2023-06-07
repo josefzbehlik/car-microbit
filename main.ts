@@ -45,6 +45,9 @@ pins.setPull(pinC, PinPullMode.PullNone)
 pins.setPull(pinL, PinPullMode.PullNone)
 pins.setPull(pinR, PinPullMode.PullNone)
 
+let c = (whiteLine ^ pins.digitalReadPin(pinC)) == 0 ? false : true
+let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
+let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
 
 radio.onReceivedNumber(function(receivedNumber: 1) {
     autoModeEnabled = true
@@ -52,12 +55,19 @@ radio.onReceivedNumber(function(receivedNumber: 1) {
 radio.onReceivedNumber(function (receivedNumber: 0) {
     autoModeEnabled = false
 })
-basic.forever(function () {
-    if (autoModeEnabled) {
-        let c = (whiteLine ^ pins.digitalReadPin(pinC)) == 0 ? false : true
-        let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
-        let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
 
+function mezera() {
+    PCAmotor.MotorStopAll()
+        basic.pause(200)
+    for (let i = 0; i < 5; i++) {
+        PCAmotor.MotorRun(PCAmotor.Motors.M1, -150)
+        PCAmotor.MotorRun(PCAmotor.Motors.M4, -160)
+        i + 1
+    }
+}
+
+function zaklad() {
+    if (autoModeEnabled) {
         if (c) {
             PCAmotor.MotorRun(PCAmotor.Motors.M1, -150)
             PCAmotor.MotorRun(PCAmotor.Motors.M4, -160)
@@ -69,7 +79,20 @@ basic.forever(function () {
             PCAmotor.MotorRun(PCAmotor.Motors.M4, 100)
         }
     }
+}
+
+
+basic.forever(function () {
+        zaklad()
+    if (c = false, l = false, r = false){
+        mezera()
+        if (c = true, l = true, r = true) {
+            zaklad()
+        }
+    }
 })
+
+
 
 
 
