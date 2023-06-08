@@ -32,8 +32,6 @@ radio.setGroup(13)
 
 // })
 
-
-
 let autoModeEnabled = true
 let whiteLine = 0
 
@@ -41,76 +39,113 @@ let pinC = DigitalPin.P15
 let pinL = DigitalPin.P14 // zkontrolovat piny
 let pinR = DigitalPin.P13
 
+radio.onReceivedNumber(function (receivedNumber: 1) {
+autoModeEnabled = true
+})
+radio.onReceivedNumber(function (receivedNumber: 0) {
+autoModeEnabled = false
+})
+
 pins.setPull(pinC, PinPullMode.PullNone)
 pins.setPull(pinL, PinPullMode.PullNone)
 pins.setPull(pinR, PinPullMode.PullNone)
 
-let c = (whiteLine ^ pins.digitalReadPin(pinC)) == 0 ? false : true
-let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
-let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
-
-
-//ARRAY
-const pole = []
-
-radio.onReceivedNumber(function(receivedNumber: 1) {
-    autoModeEnabled = true
-})
-radio.onReceivedNumber(function (receivedNumber: 0) {
-    autoModeEnabled = false
-})
-
-function mezera() {
-    PCAmotor.MotorStopAll()
-        basic.pause(200)
-    for (let i = 0; i < 5; i++) {
-        PCAmotor.MotorRun(PCAmotor.Motors.M1, -150)
-        PCAmotor.MotorRun(PCAmotor.Motors.M4, -160)
-        i + 1
-    }
-}
-
-function zaklad() {
-    if (autoModeEnabled) {
-        if (c) {
-            PCAmotor.MotorRun(PCAmotor.Motors.M1, -150)
-            PCAmotor.MotorRun(PCAmotor.Motors.M4, -160)
-        } else if (l) {
-            PCAmotor.MotorRun(PCAmotor.Motors.M1, 100)
-            PCAmotor.MotorRun(PCAmotor.Motors.M4, -150)
-        } else if (r) {
-            PCAmotor.MotorRun(PCAmotor.Motors.M1, -150)
-            PCAmotor.MotorRun(PCAmotor.Motors.M4, 100)
-        }
-    }
-}
-
-function krizovatka ( ) {
-    if (c = true) {
-        basic.pause(50)
-        pole.unshift(c)
-    }
-    if (l = true) {
-        basic.pause(50)
-        pole.unshift(l)
-    }
-    if (r = true) {
-        basic.pause(50)
-        pole.unshift(r)
-    }
-}
-
+//funkční
 basic.forever(function () {
-        zaklad()
-    if (c = false, l = false, r = false){
-        mezera()
-        if (c = true, l = true, r = true) {
-            zaklad()
+    if (autoModeEnabled) {
+        let c = (whiteLine ^ pins.digitalReadPin(pinC)) == 0 ? false : true
+        let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
+        let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
+
+        if (c) {
+            PCAmotor.MotorRun(PCAmotor.Motors.M1, -110)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, -130)
+        } else if (l) {
+            PCAmotor.MotorRun(PCAmotor.Motors.M1, 90)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, -120)
+        } else if (r) {
+            PCAmotor.MotorRun(PCAmotor.Motors.M1, -120)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, 90)
         }
     }
+
 })
 
+// let autoModeEnabled = true
+// let whiteLine = 0
 
+// let pinC = DigitalPin.P15
+// let pinL = DigitalPin.P14 // zkontrolovat piny
+// let pinR = DigitalPin.P13
+
+// pins.setPull(pinC, PinPullMode.PullNone)
+// pins.setPull(pinL, PinPullMode.PullNone)
+// pins.setPull(pinR, PinPullMode.PullNone)
+
+// let c = (whiteLine ^ pins.digitalReadPin(pinC)) == 0 ? false : true
+// let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
+// let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
+
+
+// //ARRAY
+// const pole = []
+
+// radio.onReceivedNumber(function (receivedNumber: 1) {
+//     autoModeEnabled = true
+// })
+// radio.onReceivedNumber(function (receivedNumber: 0) {
+//     autoModeEnabled = false
+// })
+
+// function mezera() {
+//     PCAmotor.MotorStopAll()
+//     basic.pause(200)
+//     for (let i = 0; i < 5; i++) {
+//         PCAmotor.MotorRun(PCAmotor.Motors.M1, -150)
+//         PCAmotor.MotorRun(PCAmotor.Motors.M4, -160)
+//         i + 1
+//     }
+// }
+
+// function zaklad() {
+//     if (autoModeEnabled) {
+//         if (c) {
+//             PCAmotor.MotorRun(PCAmotor.Motors.M1, -150)
+//             PCAmotor.MotorRun(PCAmotor.Motors.M4, -160)
+//         } else if (l) {
+//             PCAmotor.MotorRun(PCAmotor.Motors.M1, 100)
+//             PCAmotor.MotorRun(PCAmotor.Motors.M4, -150)
+//         } else if (r) {
+//             PCAmotor.MotorRun(PCAmotor.Motors.M1, -150)
+//             PCAmotor.MotorRun(PCAmotor.Motors.M4, 100)
+//         }
+//     }
+// }
+
+// function krizovatka() {
+//     if (c = true) {
+//         basic.pause(50)
+//         pole.unshift(c)
+//     }
+//     if (l = true) {
+//         basic.pause(50)
+//         pole.unshift(l)
+//     }
+//     if (r = true) {
+//         basic.pause(50)
+//         pole.unshift(r)
+//     }
+// }
+
+// basic.forever(function () {
+//     zaklad()
+//     if (c = false, l = false, r = false) {
+//         mezera()
+//         if (c = true, l = true, r = true) {
+//             zaklad()
+//         }
+//     }
+// })
 
 
 
