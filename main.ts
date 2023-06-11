@@ -43,13 +43,13 @@ pins.setPull(pinC, PinPullMode.PullNone)
 pins.setPull(pinL, PinPullMode.PullNone)
 pins.setPull(pinR, PinPullMode.PullNone)
 
+
 let c = (whiteLine ^ pins.digitalReadPin(pinC)) == 0 ? false : true
 let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
 let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
 
-
 //ARRAY
-const pole = ["c","r","l"]
+const pole : any = []
 
 
 radio.onReceivedNumber(function (receivedNumber: 1) {
@@ -70,7 +70,7 @@ basic.forever(function () {
         let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
         let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
 
-        if (c) {
+        if (c) { if (pole[0]=="c"){}
             PCAmotor.MotorRun(PCAmotor.Motors.M1, -110)
             PCAmotor.MotorRun(PCAmotor.Motors.M4, -130)
         } else if (l) {
@@ -86,7 +86,7 @@ basic.forever(function () {
 // function krizovatka ( ) {
 //     if (c = true) {
 //         basic.pause(50)
-//         pole.unshift("c")
+//        pole.unshift("c")
 //     }
 //     if (l = true) {
 //         basic.pause(50)
