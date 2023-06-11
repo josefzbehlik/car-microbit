@@ -52,8 +52,12 @@ let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
 
 //ARRAY
 const pole: any = []
-
-
+radio.onReceivedNumber(function(receivedNumber: 5){
+let turnL = true
+})
+radio.onReceivedNumber(function (receivedNumber: 10) {
+let turnR = true
+})
 radio.onReceivedNumber(function (receivedNumber: 1) {
     autoModeEnabled = true
 })
@@ -72,34 +76,50 @@ basic.forever(function () {
         let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
         let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
 
-        if (c) {
+        if (c) {pole.unshift("c")
             PCAmotor.MotorRun(PCAmotor.Motors.M1, -110)
             PCAmotor.MotorRun(PCAmotor.Motors.M4, -130)
-        } else if (l) { 
+        } else if (l) {pole.unshift("l") 
             if (pole[0] === r||l){
-                if (turnL === true) {PCAmotor.MotorRun(PCAmotor.Motors.M1,0)
-                                    PCAmotor.MotorRun(PCAmotor.Motors.M4,0)
-                                    basic.pause(0)
-                                    PCAmotor.MotorStopAll()
-                                    }
+                if (turnL === true) {
+                    PCAmotor.MotorRun(PCAmotor.Motors.M1,0)
+                    PCAmotor.MotorRun(PCAmotor.Motors.M4,0)
+                    pole.shift
+                    basic.pause(0)
+                    PCAmotor.MotorStopAll()
+                    let turnL = false 
+                    let turnR = false   }
                 else if (turnR === true) {
                     PCAmotor.MotorRun(PCAmotor.Motors.M1, 0)
                     PCAmotor.MotorRun(PCAmotor.Motors.M4, 0)
+                    pole.shift
+                    basic.pause(0)
+                    PCAmotor.MotorStopAll()
+                    let turnL = false
+                    let turnR = false
                 }else{
             PCAmotor.MotorRun(PCAmotor.Motors.M1, 90)
             PCAmotor.MotorRun(PCAmotor.Motors.M4, -120)}
             }
-        } else if (r) {
+        } else if (r) {pole.unshift("r")
             if (pole[0] === r || l) {
                 if (turnL === true) {
                     PCAmotor.MotorRun(PCAmotor.Motors.M1, 0)
                     PCAmotor.MotorRun(PCAmotor.Motors.M4, 0)
+                    pole.shift
                     basic.pause(0)
                     PCAmotor.MotorStopAll()
+                    let turnL = false
+                    let turnR = false
                 }
                 else if (turnR === true) {
                     PCAmotor.MotorRun(PCAmotor.Motors.M1, 0)
                     PCAmotor.MotorRun(PCAmotor.Motors.M4, 0)
+                    pole.shift
+                    basic.pause(0)
+                    PCAmotor.MotorStopAll()
+                    let turnL = false
+                    let turnR = false
                 } else {
                     PCAmotor.MotorRun(PCAmotor.Motors.M1, 90)
                     PCAmotor.MotorRun(PCAmotor.Motors.M4, -120)
@@ -110,7 +130,7 @@ basic.forever(function () {
 // function krizovatka ( ) {
 //     if (c = true) {
 //         basic.pause(50)
-//        pole.unshift("c")
+//      pole.unshift("c")
 //     }
 //     if (l = true) {
 //         basic.pause(50)
