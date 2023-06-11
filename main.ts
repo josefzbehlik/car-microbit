@@ -108,21 +108,3 @@ basic.forever(function () {
 //     }
 // })
 
-// let autoModeEnabled = true
-// let whiteLine = 0
-
-// let pinC = DigitalPin.P15
-// let pinL = DigitalPin.P14 // zkontrolovat piny
-// let pinR = DigitalPin.P13
-
-// pins.setPull(pinC, PinPullMode.PullNone)
-// pins.setPull(pinL, PinPullMode.PullNone)
-// pins.setPull(pinR, PinPullMode.PullNone)
-
-// let c = (whiteLine ^ pins.digitalReadPin(pinC)) == 0 ? false : true
-// let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
-// let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
-
-
-// //ARRAY
-// const pole = []
