@@ -34,6 +34,8 @@ radio.setGroup(13)
 
 let autoModeEnabled = true
 let whiteLine = 0
+let turnL = false
+let turnR = false
 
 let pinC = DigitalPin.P15
 let pinL = DigitalPin.P14 // zkontrolovat piny
@@ -49,14 +51,14 @@ let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
 let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
 
 //ARRAY
-const pole : any = []
+const pole: any = []
 
 
 radio.onReceivedNumber(function (receivedNumber: 1) {
-autoModeEnabled = true
+    autoModeEnabled = true
 })
 radio.onReceivedNumber(function (receivedNumber: 0) {
-autoModeEnabled = false
+    autoModeEnabled = false
 })
 
 pins.setPull(pinC, PinPullMode.PullNone)
@@ -70,19 +72,41 @@ basic.forever(function () {
         let l = (whiteLine ^ pins.digitalReadPin(pinL)) == 0 ? false : true
         let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
 
-        if (c) { if (pole[0]=="c"){}
+        if (c) {
             PCAmotor.MotorRun(PCAmotor.Motors.M1, -110)
             PCAmotor.MotorRun(PCAmotor.Motors.M4, -130)
-        } else if (l) {
+        } else if (l) { 
+            if (pole[0] === r||l){
+                if (turnL === true) {PCAmotor.MotorRun(PCAmotor.Motors.M1,0)
+                                    PCAmotor.MotorRun(PCAmotor.Motors.M4,0)
+                                    basic.pause(0)
+                                    PCAmotor.MotorStopAll()
+                                    }
+                else if (turnR === true) {
+                    PCAmotor.MotorRun(PCAmotor.Motors.M1, 0)
+                    PCAmotor.MotorRun(PCAmotor.Motors.M4, 0)
+                }else{
             PCAmotor.MotorRun(PCAmotor.Motors.M1, 90)
-            PCAmotor.MotorRun(PCAmotor.Motors.M4, -120)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, -120)}
+            }
         } else if (r) {
-            PCAmotor.MotorRun(PCAmotor.Motors.M1, -120)
-            PCAmotor.MotorRun(PCAmotor.Motors.M4, 90)
+            if (pole[0] === r || l) {
+                if (turnL === true) {
+                    PCAmotor.MotorRun(PCAmotor.Motors.M1, 0)
+                    PCAmotor.MotorRun(PCAmotor.Motors.M4, 0)
+                    basic.pause(0)
+                    PCAmotor.MotorStopAll()
+                }
+                else if (turnR === true) {
+                    PCAmotor.MotorRun(PCAmotor.Motors.M1, 0)
+                    PCAmotor.MotorRun(PCAmotor.Motors.M4, 0)
+                } else {
+                    PCAmotor.MotorRun(PCAmotor.Motors.M1, 90)
+                    PCAmotor.MotorRun(PCAmotor.Motors.M4, -120)
+                }
         }
     }
-})
-
+}})
 // function krizovatka ( ) {
 //     if (c = true) {
 //         basic.pause(50)
