@@ -6,7 +6,7 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "pxt-magicbit-pca9685": "github:TomasKazda/pxt-magicbit-pca9685#cc3452fed948afe4b2e56628fd6fde92110b3ef4",
+        "pxt-magicbit-pca9685": "github:TomasKazda/pxt-magicbit-pca9685#1e097c914b2c7ed1f4071d7b6288ef64812030e2",
         "neopixel": "github:microsoft/pxt-neopixel#v0.7.5"
     },
     "files": [
