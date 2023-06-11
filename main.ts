@@ -51,8 +51,7 @@ let r = (whiteLine ^ pins.digitalReadPin(pinR)) == 0 ? false : true
 //ARRAY
 const pole = ["c","r","l"]
 
-radio.onReceivedNumber(function(receivedNumber: 1) {
-    autoModeEnabled = true
+
 radio.onReceivedNumber(function (receivedNumber: 1) {
 autoModeEnabled = true
 })
@@ -82,31 +81,32 @@ basic.forever(function () {
             PCAmotor.MotorRun(PCAmotor.Motors.M4, 90)
         }
     }
-
-function krizovatka ( ) {
-    if (c = true) {
-        basic.pause(50)
-        pole.unshift("c")
-    }
-    if (l = true) {
-        basic.pause(50)
-        pole.unshift("l")
-    }
-    if (r = true) {
-        basic.pause(50)
-        pole.unshift("r")
-    }
-}
-
-basic.forever(function () {
-        zaklad()
-    if (c = false, l = false, r = false){
-        mezera()
-        if (c = true, l = true, r = true) {
-            zaklad()
-        }
-    }
 })
+
+// function krizovatka ( ) {
+//     if (c = true) {
+//         basic.pause(50)
+//         pole.unshift("c")
+//     }
+//     if (l = true) {
+//         basic.pause(50)
+//         pole.unshift("l")
+//     }
+//     if (r = true) {
+//         basic.pause(50)
+//         pole.unshift("r")
+//     }
+// }
+
+// basic.forever(function () {
+//         zaklad()
+//     if (c = false, l = false, r = false){
+//         mezera()
+//         if (c = true, l = true, r = true) {
+//             zaklad()
+//         }
+//     }
+// })
 
 // let autoModeEnabled = true
 // let whiteLine = 0
