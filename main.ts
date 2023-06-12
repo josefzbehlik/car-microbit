@@ -30,15 +30,15 @@ basic.forever(function () {
 
     if (c) {
        
-        PCAmotor.MotorRun(PCAmotor.Motors.M1, -95)
+        PCAmotor.MotorRun(PCAmotor.Motors.M1, -105)
         PCAmotor.MotorRun(PCAmotor.Motors.M4, -120)
     } else if (l) {
-        PCAmotor.MotorRun(PCAmotor.Motors.M1, 95)
+        PCAmotor.MotorRun(PCAmotor.Motors.M1, 105)
         PCAmotor.MotorRun(PCAmotor.Motors.M4, -130)
     }
     else if (r) {
         PCAmotor.MotorRun(PCAmotor.Motors.M1, -125)
-        PCAmotor.MotorRun(PCAmotor.Motors.M4, 100)
+        PCAmotor.MotorRun(PCAmotor.Motors.M4, 105)
     }
 }
 )
